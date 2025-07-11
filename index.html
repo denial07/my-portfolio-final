@@ -7,46 +7,181 @@
     <title>Daniel's Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        html {
+        :root {
+            --primary-color: #0d6efd;
+            --dark-bg: #000000;
+            --text-light: #ffffff;
+            --heading-font: 'Segoe UI', sans-serif;
+            --body-font: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--body-font);
             scroll-behavior: smooth;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar {
+            background-color: transparent !important;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: #fff !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin-left: 1rem;
+            color: #fff !important;
         }
 
         #hero {
-            background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
         }
 
-        .project-card:hover {
-            transform: scale(1.02);
-            transition: 0.3s;
+        .hero-container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            text-align: center;
         }
 
-        .badge-tech {
-            background-color: #e9ecef;
-            margin: 2px;
-        }
-
-
-        .profile-img {
-            object-fit: cover;
-            object-position: center;
-            width: 300px;
-            height: 300px;
+        .hero-container img {
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #444;
+        }
+
+        .btn,
+        .badge,
+        .list-group-item {
+            border-radius: 6px;
+        }
+
+        footer {
+            background-color: #111;
+            color: #ccc;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.2);
+            color: var(--primary-color);
+        }
+
+        input,
+        textarea {
+            background-color: #111;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #aaa;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            color: #000;
+            border-radius: 12px;
+        }
+
+        .modal-body ul {
+            padding-left: 1.2rem;
+        }
+
+        .carousel {
+            position: relative;
+        }
+
+        /* Ensure the container allows overflow if needed */
+        .modal-body {
+            overflow: visible;
+        }
+
+        #thriftyModal .carousel-control-prev {
+            left: -120px;
+        }
+
+        #thriftyModal .carousel-control-next {
+            right: -120px;
+        }
+
+
+        /* Make arrows larger, visible, and positioned outside */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 48px;
+            height: 48px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background-color: #ccc;
+            border-radius: 50%;
+            opacity: 1 !important;
+        }
+
+        /* Position them outside the image bounds */
+        .carousel-control-prev {
+            left: -60px;
+        }
+
+        .carousel-control-next {
+            right: -60px;
+        }
+
+        /* Ensure arrow icons are white and scaled */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-size: 70% 70%;
+            filter: invert(1);
+            /* Makes icon white */
+        }
+
+        @media (max-width: 768px) {
+            .carousel-control-prev {
+                left: 10px;
+            }
+
+            .carousel-control-next {
+                right: 10px;
+            }
         }
     </style>
-
-
 </head>
 
-<body>
+<body data-theme="light">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Daniel</a>
+            <a class="navbar-brand fw-bold text-dark" href="#">Daniel</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -57,129 +192,99 @@
                     <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
+                <!-- <button class="btn btn-sm btn-outline-transparent ms-3" id="toggleTheme" title="Toggle Theme"></button> -->
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section id="hero" class="position-relative text-center text-white d-flex align-items-center justify-content-center"
-        style="min-height: 100vh; overflow: hidden;">
-        <div class="container">
-            <img src="profile photo 1.jpg" alt="Daniel's Profile Photo" class="profile-img" />
-
-            <h1 class="display-4 fw-bold">Hi, I'm <span style="color: transparent;" class="text-warning">Daniel</span>
-            </h1>
-            <p class="lead">Full-Stack Developer building modern web apps.</p>
-            <div class="mt-4">
-                <a href="#projects" class="btn btn-light me-2">View My Work</a>
-                <a href="#contact" class="btn btn-outline-light">Get in Touch</a>
-            </div>
-            <div class="mt-4">
-                <a href="https://github.com/daniel" target="_blank" class="text-white me-3"><i
-                        class="fab fa-github fa-lg"></i></a>
-                <a href="https://linkedin.com/in/daniel" target="_blank" class="text-white me-3"><i
-                        class="fab fa-linkedin fa-lg"></i></a>
-                <a href="mailto:daniel@example.com" class="text-white"><i class="fas fa-envelope fa-lg"></i></a>
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-container">
+            <img src="public/profile photo 1.jpg" alt="Daniel's Profile Photo" />
+            <h1>Hi, I'm Daniel 👋</h1>
+            <p>A full-stack web developer focused on building meaningful digital experiences.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary"><i class="bi bi-folder"></i> See Projects</a>
+                <a href="/public/Daniel-Resume.pdf" class="btn btn-outline-secondary"><i
+                        class="bi bi-file-earmark-person"></i> View Resume</a>
             </div>
         </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">About Me</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>I’m a passionate full-stack developer with over 2 years of experience building scalable,
-                        data-driven applications. With a strong foundation in backend systems, API design, and databases
-                        like SQL Server and MongoDB, I’m dedicated to creating solutions that are both powerful and
-                        reliable.</p>
 
-                    <p>Outside of work, I contribute to open source and mentor others.</p>
-                    <div>
-                        <span class="badge bg-secondary">Problem Solver</span>
-                        <span class="badge bg-secondary">Team Player</span>
-                        <span class="badge bg-secondary">Open Source Contributor</span>
+
+    <section id="about" class="d-flex align-items-center bg-black text-light" style="min-height: 100vh;">
+        <div class="container">
+            <h2 class="text-center mb-5"><b>About Me</b></h2>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <p class="lead">
+                        I'm a passionate full-stack developer who enjoys solving real-world problems through technology.
+                    </p>
+                    <p>
+                        With over 2 years of experience building scalable, data-driven applications using backend
+                        systems,
+                        API design, SQL Server, and MongoDB, I focus on building impactful digital experiences.
+                    </p>
+                    <p>I also contribute to open source and mentor junior developers.</p>
+                    <div class="mt-3">
+                        <span class="badge bg-secondary me-2 mb-2">Problem Solver</span>
+                        <span class="badge bg-secondary me-2 mb-2">Team Player</span>
+                        <span class="badge bg-secondary mb-2">Open Source Contributor</span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <ul class="list-group">
-                        <li class="list-group-item">🎓 Diploma Information Technology - Nanyang Polytechnic</li>
-                        <li class="list-group-item">💼 2+ years in full-stack development</li>
-                        <li class="list-group-item">🌍 Available for remote work</li>
+                <div class="col-lg-5">
+                    <ul class="list-group list-group-flush bg-transparent">
+                        <li class="list-group-item bg-dark text-light border-light">🎓 Diploma Information Technology -
+                            Nanyang Polytechnic</li>
+                        <li class="list-group-item bg-dark text-light border-light">💼 2+ years in full-stack
+                            development</li>
+                        <li class="list-group-item bg-dark text-light border-light">🌍 Available for remote work</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects" class="py-5">
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5" style="min-height: 100vh;">
         <div class="container">
             <h2 class="text-center mb-4">Featured Projects</h2>
             <div class="row g-4">
-                <!-- Example project card -->
+
+                <!-- Thrifty Project Card -->
                 <div class="col-md-6">
-                    <div class="card project-card">
-                        <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="Project Image" />
+                    <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
+                        data-bs-target="#thriftyModal">
+                        <img src="/public/thrifty main.png" class="card-img-top" alt="Thrifty E-commerce">
                         <div class="card-body">
                             <h5 class="card-title">Thrifty (E-Commerce Platform)</h5>
-                            <p class="card-text">Full-stack e-commerce solution with user authentication, Stripe
-                                integration, and an admin dashboard.</p>
+                            <p class="card-text">Full-stack sustainable thrift marketplace with admin dashboard and
+                                Stripe integration.</p>
                             <div>
-                                <span class="badge badge-tech">React</span>
-                                <span class="badge badge-tech">Node.js</span>
-                                <span class="badge badge-tech">PostgreSQL</span>
+                                <span class="badge bg-primary me-1">React</span>
+                                <span class="badge bg-success me-1">Node.js</span>
+                                <span class="badge bg-secondary">PostgreSQL</span>
                             </div>
-                            <a href="https://github.com/daniel/ecommerce" target="_blank"
-                                class="btn btn-sm btn-dark mt-2">Code</a>
-                            <a href="https://ecommerce-demo.com" target="_blank"
-                                class="btn btn-sm btn-outline-primary mt-2">Live</a>
                         </div>
                     </div>
                 </div>
-                <!-- Add more project cards similarly -->
+
+                <!-- Pomodoro Clock -->
                 <div class="col-md-6">
-                    <div class="card project-card">
-                        <img src="https://via.placeholder.com/500x300" class="card-img-top"
-                            alt="NGS Dashboard Project" />
-                        <div class="card-body">
-                            <h5 class="card-title">NGS Dashboard (Shipment System)</h5>
-                            <p class="card-text">
-                                Shipment and inventory management platform built for Ng Guan Seng Woodworking. Features
-                                real-time updates, smart filters, and responsive UI.
-                            </p>
-                            <div>
-                                <span class="badge badge-tech">Next.js</span>
-                                <span class="badge badge-tech">MongoDB</span>
-                                <span class="badge badge-tech">Node.js</span>
-                            </div>
-                            <a href="https://github.com/daniel/ngs-dashboard" target="_blank"
-                                class="btn btn-sm btn-dark mt-2">Code</a>
-                            <a href="https://ngs-dashboard-demo.com" target="_blank"
-                                class="btn btn-sm btn-outline-primary mt-2">Live</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card project-card">
-                        <img src="https://via.placeholder.com/500x300" class="card-img-top"
-                            alt="Pomodoro Clock Project" />
+                    <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
+                        data-bs-target="#pomodoroModal">
+                        <img src="/public/pomodoro main.png" class="card-img-top" alt="Pomodoro App">
                         <div class="card-body">
                             <h5 class="card-title">Pomodoro Productivity Clock</h5>
-                            <p class="card-text">
-                                A minimalist focus timer app built with the Pomodoro technique. Includes session
-                                tracking, task organization, and focus analytics.
-                            </p>
+                            <p class="card-text">Minimalist timer app based on the Pomodoro technique with task tracking
+                                and focus insights.</p>
                             <div>
-                                <span class="badge badge-tech">JavaScript</span>
-                                <span class="badge badge-tech">HTML</span>
-                                <span class="badge badge-tech">CSS</span>
+                                <span class="badge bg-warning text-dark me-1">JavaScript</span>
+                                <span class="badge bg-info text-dark me-1">HTML</span>
+                                <span class="badge bg-secondary">CSS</span>
                             </div>
-                            <a href="https://github.com/daniel/pomodoro-clock" target="_blank"
-                                class="btn btn-sm btn-dark mt-2">Code</a>
-                            <a href="https://pomodoro-demo.com" target="_blank"
-                                class="btn btn-sm btn-outline-primary mt-2">Live</a>
                         </div>
                     </div>
                 </div>
@@ -188,8 +293,92 @@
         </div>
     </section>
 
+
+    <div class="modal fade" id="thriftyModal" tabindex="-1" aria-labelledby="thriftyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content text-black bg-white rounded shadow">
+
+                <!-- Header -->
+                <div class="modal-header border-0">
+                    <h4 class="modal-title fw-bold" id="thriftyModalLabel">Thrifty – E-Commerce Platform</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+
+                    <!-- Carousel -->
+                    <div id="thriftyCarousel" class="carousel slide mb-4 position-relative" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded overflow-hidden">
+                            <div class="carousel-item active">
+                                <img src="/public/thrifty main+filter.png" class="d-block w-100"
+                                    alt="Thrifty Homepage" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/public/thrifty dashboard.png" class="d-block w-100" alt="Admin Dashboard" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/public/thrifty product.png" class="d-block w-100" alt="Product View" />
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#thriftyCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#thriftyCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+
+                    <!-- Project Description -->
+                    <p class="fs-5">
+                        Thrifty is a sustainable thrift marketplace connecting buyers, sellers, and donors through a
+                        seamless e-commerce experience. It includes user roles, an analytics dashboard, and full payment
+                        flow integration.
+                    </p>
+
+                    <!-- Features -->
+                    <h5 class="mt-4 fw-semibold">Key Features</h5>
+                    <ul class="mb-4">
+                        <li>User Authentication & Role-Based Access</li>
+                        <li>Admin Dashboard with Real-Time Analytics</li>
+                        <li>Stripe Payment Integration</li>
+                        <li>Search, Filters, and Sorting</li>
+                        <li>Email Notifications with Nodemailer</li>
+                    </ul>
+
+                    <!-- Technologies -->
+                    <h5 class="fw-semibold">Built With</h5>
+                    <div class="mb-4">
+                        <span class="badge bg-light text-dark border me-2 mb-2">React</span>
+                        <span class="badge bg-light text-dark border me-2 mb-2">Node.js</span>
+                        <span class="badge bg-light text-dark border me-2 mb-2">Express.js</span>
+                        <span class="badge bg-light text-dark border me-2 mb-2">PostgreSQL</span>
+                        <span class="badge bg-light text-dark border mb-2">Stripe API</span>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="https://github.com/daniel/ecommerce" target="_blank" class="btn btn-dark">
+                            <i class="fab fa-github me-1"></i> GitHub
+                        </a>
+                        <a href="https://ecommerce-demo.com" target="_blank" class="btn btn-outline-primary">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <!-- Skills -->
-    <section id="skills" class="py-5 bg-light">
+    <section id="skills" class="py-5 bg-black text-light" style="min-height: 100vh;">
         <div class="container">
             <h2 class="text-center mb-4">Skills & Technologies</h2>
             <div class="row g-4">
@@ -235,20 +424,26 @@
         </div>
     </section>
 
-
-    <!-- Contact -->
-    <section id="contact" class="py-5">
+    <section id="contact" class="d-flex align-items-center bg-black text-light" style="min-height: 100vh;">
         <div class="container">
-            <h2 class="text-center mb-4">Get In Touch</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Interested in collaborating? Feel free to drop me a message below.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-envelope text-primary me-2"></i> danielwork133@gmail.com</li>
-                        <li><i class="fab fa-github text-dark me-2"></i> github.com/daniel</li>
-                        <li><i class="fab fa-linkedin text-primary me-2"></i> linkedin.com/in/daniel</li>
-                    </ul>
+            <h2 class="text-center mb-5">Get In Touch</h2>
+            <div class="row align-items-center justify-content-center text-center text-md-start gy-4">
+
+                <!-- Social Icons -->
+                <div class="col-md-5 d-flex justify-content-center">
+                    <div class="d-flex flex-column align-items-center gap-4">
+                        <a href="https://github.com/denial07" target="_blank" class="text-white fs-1"
+                            aria-label="GitHub">
+                            <i class="fab fa-github hover-scale"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/daniel-lee-682763351/" target="_blank"
+                            class="text-info fs-1" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin hover-scale"></i>
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Contact Form -->
                 <div class="col-md-6">
                     <form>
                         <div class="mb-3">
@@ -269,6 +464,8 @@
             </div>
         </div>
     </section>
+
+
 
     <!-- Footer -->
     <footer class="py-4 bg-dark text-center text-white">
@@ -295,6 +492,8 @@
             });
         });
     });
+
+
 
     VANTA.CLOUDS({
         el: "#hero",
