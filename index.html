@@ -180,9 +180,33 @@
             color: #111;
             border: 1px solid #ccc;
         }
+
         #resume-1:hover {
             background-color: #0d6efd;
-            
+
+        }
+
+        .bento-box {
+            color: black;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .bento-box:hover {
+            transform: translateY(-4px);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 60rem;
+        }
+
+        .bento-icon {
+            font-size: 1.75rem;
+            margin-bottom: 10rem;
         }
     </style>
 </head>
@@ -215,7 +239,8 @@
             <p>A full-stack web developer focused on building meaningful digital experiences.</p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn btn-primary"><i class="bi bi-folder"></i> See Projects</a>
-                <a href="resume/resume.pdf" class="btn btn-outline-secondary" style="background-color: whitesmoke; color: #111;" id="resume-1"><i
+                <a href="resume/resume.pdf" class="btn btn-outline-secondary"
+                    style="background-color: whitesmoke; color: #111;" id="resume-1"><i
                         class="bi bi-file-earmark-person"></i> View Resume</a>
             </div>
         </div>
@@ -260,18 +285,17 @@
     <!-- Projects Section -->
     <section id="projects" class="py-5" style="min-height: 100vh;">
         <div class="container">
-            <h2 class="text-center mb-4">Featured Projects</h2>
-            <div class="row g-4">
+            <h2 class="text-center mb-4"><b>Featured Projects</b></h2>
+            <div class="row justify-content-center ">
 
                 <!-- Thrifty Project Card -->
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
                         data-bs-target="#thriftyModal">
                         <img src="images/thrifty main.png" class="card-img-top" alt="Thrifty E-commerce">
                         <div class="card-body">
                             <h5 class="card-title">Thrifty (E-Commerce Platform)</h5>
-                            <p class="card-text">Full-stack sustainable thrift marketplace with admin dashboard and
-                                Stripe integration.</p>
+                            
                             <div>
                                 <span class="badge bg-primary me-1">React</span>
                                 <span class="badge bg-success me-1">Node.js</span>
@@ -282,14 +306,13 @@
                 </div>
 
                 <!-- Pomodoro Clock -->
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
                         data-bs-target="#pomodoroModal">
                         <img src="images/pomodoro main.png" class="card-img-top" alt="Pomodoro App">
                         <div class="card-body">
                             <h5 class="card-title">Pomodoro Productivity Clock</h5>
-                            <p class="card-text">Minimalist timer app based on the Pomodoro technique with task tracking
-                                and focus insights.</p>
+                            
                             <div>
                                 <span class="badge bg-warning text-dark me-1">JavaScript</span>
                                 <span class="badge bg-info text-dark me-1">HTML</span>
@@ -302,6 +325,8 @@
             </div>
         </div>
     </section>
+
+    <!-- Thrifty Project Modal -->
 
 
     <div class="modal fade" id="thriftyModal" tabindex="-1" aria-labelledby="thriftyModalLabel" aria-hidden="true">
@@ -350,34 +375,43 @@
                     </p>
 
                     <!-- Features -->
-                    <h5 class="mt-4 fw-semibold">Key Features</h5>
-                    <ul class="mb-4">
-                        <li>User Authentication & Role-Based Access</li>
-                        <li>Admin Dashboard with Real-Time Analytics</li>
-                        <li>Stripe Payment Integration</li>
-                        <li>Search, Filters, and Sorting</li>
-                        <li>Email Notifications with Nodemailer</li>
-                    </ul>
+                    <div class="bento-box">
+                        <h5 class="fw-semibold mb-2">Key Features</h5>
+                        <ul class="mb-0">
+                            <li>User Authentication & Role-Based Access</li>
+                            <li>Real-Time Admin Dashboard</li>
+                            <li>Stripe Payment Integration</li>
+                            <li>Search, Filters, and Sorting</li>
+                            <li>Email Notifications with Nodemailer</li>
+                        </ul>
+                    </div>
 
                     <!-- Technologies -->
-                    <h5 class="fw-semibold">Built With</h5>
-                    <div class="mb-4">
-                        <span class="badge bg-light text-dark border me-2 mb-2">React</span>
-                        <span class="badge bg-light text-dark border me-2 mb-2">Node.js</span>
-                        <span class="badge bg-light text-dark border me-2 mb-2">Express.js</span>
-                        <span class="badge bg-light text-dark border me-2 mb-2">PostgreSQL</span>
-                        <span class="badge bg-light text-dark border mb-2">Stripe API</span>
+                    <div class="bento-box">
+                        <h5 class="fw-semibold mb-3">Built With</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-secondary">React</span>
+                            <span class="badge bg-secondary">Node.js</span>
+                            <span class="badge bg-secondary">Express.js</span>
+                            <span class="badge bg-secondary">PostgreSQL</span>
+                            <span class="badge bg-secondary">Stripe API</span>
+                        </div>
                     </div>
 
                     <!-- Links -->
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="https://github.com/daniel/ecommerce" target="_blank" class="btn btn-dark">
+                    <div class="bento-box">
+                        <h5 class="fw-semibold mb-2">Explore</h5>
+                        <a href="https://github.com/daniel/ecommerce" class="btn btn-outline-light me-2 mb-2"
+                            target="_blank">
                             <i class="fab fa-github me-1"></i> GitHub
                         </a>
-                        <a href="https://ecommerce-demo.com" target="_blank" class="btn btn-outline-primary">
+                        <a href="https://ecommerce-demo.com" class="btn btn-primary mb-2" target="_blank">
                             <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo
                         </a>
                     </div>
+
+
+ 
 
                 </div>
             </div>
