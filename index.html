@@ -45,14 +45,29 @@
         }
 
         #hero {
-            min-height: 100vh;
+            min-height: 105vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 80px 20px;
             background-color: var(--dark-bg);
             color: var(--text-light);
+            position: relative;
+            z-index: 2;
+
         }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 100px;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #000 100%);
+            z-index: 1;
+        }
+
 
         .hero-container {
             background: rgba(0, 0, 0, 0.4);
@@ -126,13 +141,33 @@
             overflow: visible;
         }
 
-        #thriftyModal .carousel-control-prev {
+        .carousel-control-prev {
             left: -120px;
         }
 
-        #thriftyModal .carousel-control-next {
+        .carousel-control-next {
             right: -120px;
         }
+
+        .carousel-img-box {
+            width: 100%;
+            height: 400px;
+            /* adjust this height to your needs */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            /* optional: helps logo stand out */
+            overflow: hidden;
+        }
+
+        .carousel-img-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+
+        }
+
 
 
         /* Make arrows larger, visible, and positioned outside */
@@ -149,13 +184,6 @@
         }
 
         /* Position them outside the image bounds */
-        .carousel-control-prev {
-            left: -60px;
-        }
-
-        .carousel-control-next {
-            right: -60px;
-        }
 
         /* Ensure arrow icons are white and scaled */
         .carousel-control-prev-icon,
@@ -192,21 +220,102 @@
             padding: 1.5rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s ease;
+            padding-bottom: 2rem;
         }
 
         .bento-box:hover {
             transform: translateY(-4px);
+            opacity: 1;
         }
 
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 60rem;
         }
 
         .bento-icon {
             font-size: 1.75rem;
             margin-bottom: 10rem;
+        }
+
+        .custom-hr {
+            border: none;
+            height: 1px;
+            background: #444;
+            /* or any muted color */
+            margin: 0.5rem 0 1rem 0;
+            opacity: 0.5;
+            /* optional: adds a subtle look */
+        }
+
+        .project-img-box {
+            width: 100%;
+            height: 200px;
+
+            /* or adjust based on your layout */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            /* Optional light background */
+        }
+
+        .project-img-box img {
+            max-width: 50%;
+            max-height: 50%;
+            object-fit: cover;
+
+            /* or 'contain' if you want to preserve full aspect */
+        }
+
+        /* Make cards larger and add transition */
+        .project-card {
+            transition: all 0.3s ease;
+            transform: scale(1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Hover effect on individual card */
+        .project-card:hover {
+            outline: 3px solid #0d6efd;
+            /* Bootstrap primary blue */
+            transform: scale(1.05);
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Blur everything else when hovering on any card */
+        .project-grid:hover .project-card {
+            filter: blur(2px);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        /* Remove blur for the hovered card */
+        .project-card:hover {
+            filter: none !important;
+            opacity: 1 !important;
+            z-index: 10;
+        }
+
+        .project-card img {
+            max-height: 220px;
+            /* Adjust image height */
+            object-fit: cover;
+        }
+
+        .project-card .card-body {
+            min-height: 50px;
+            /* Makes card body more uniform */
+        }
+
+        .project-card .card-body h5 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
         }
     </style>
 </head>
@@ -251,7 +360,7 @@
 
     <section id="about" class="d-flex align-items-center bg-black text-light" style="min-height: 100vh;">
         <div class="container">
-            <h2 class="text-center mb-5"><b>About Me</b></h2>
+            <h1 class="text-center mb-5"><b>About Me</b></h1>
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <p class="lead">
@@ -296,77 +405,65 @@
     <!-- Projects Section -->
     <section id="projects" class="py-5" style="min-height: 100vh;">
         <div class="container">
-            <h2 class="text-center mb-4"><b>Featured Projects</b></h2>
-            <div class="row justify-content-center ">
+            <h1 class="text-center mb-4" style="padding-bottom: 5rem;"><b>Featured Projects</b></h1>
 
+            <div class="row gx-4 gy-4 project-grid">
                 <!-- Thrifty Project Card -->
-                <div class="col-md-5">
-                    <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
+                <div class="col-md-6">
+                    <div class="card project-card shadow-sm" role="button" data-bs-toggle="modal"
                         data-bs-target="#thriftyModal">
-                        <img src="images/thrifty main.png" class="card-img-top" alt="Thrifty E-commerce">
+                        <div class="project-img-box">
+                            <img src="logos/thrifty-logo.svg" class="img-fluid" alt="Thrifty E-commerce" />
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">Thrifty (E-Commerce Platform)</h5>
-
-                            <div>
-                                <span class="badge bg-primary me-1">React</span>
-                                <span class="badge bg-success me-1">Node.js</span>
-                                <span class="badge bg-secondary">PostgreSQL</span>
-                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Pomodoro Clock -->
-                <div class="col-md-5">
-                    <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
+                <div class="col-md-6">
+                    <div class="card project-card shadow-sm" role="button" data-bs-toggle="modal"
                         data-bs-target="#pomodoroModal">
-                        <img src="images/pomodoro main.png" class="card-img-top" alt="Pomodoro App">
+                        <div class="project-img-box">
+                            <img src="logos/frakt-pomodoro-logo.svg" class="img-fluid" alt="Pomodoro App" />
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">Pomodoro Productivity Clock</h5>
-
-                            <div>
-                                <span class="badge bg-warning text-dark me-1">JavaScript</span>
-                                <span class="badge bg-info text-dark me-1">HTML</span>
-                                <span class="badge bg-secondary">CSS</span>
-                            </div>
+                            <h5 class="card-title">Frakt (Pomodoro Productivity Clock)</h5>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-5 mt-4">
-                    <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
-                        data-bs-target="#pomodoroModal">
-                        <img src="images/pomodoro main.png" class="card-img-top" alt="Pomodoro App">
+                <!-- NGS -->
+                <div class="col-md-6">
+                    <div class="card project-card shadow-sm" role="button" data-bs-toggle="modal"
+                        data-bs-target="#ngsModal">
+                        <div class="project-img-box">
+                            <img src="logos/NGSlogo-logo.png" class="img-fluid" alt="NGS Management Dashboard" />
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">NGS management dashboard</h5>
-
-                            <div>
-                                <span class="badge bg-warning text-dark me-1">JavaScript</span>
-                                <span class="badge bg-info text-dark me-1">HTML</span>
-                                <span class="badge bg-secondary">CSS</span>
-                            </div>
+                            <h5 class="card-title">NGS Management Dashboard</h5>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-5 mt-4">
-                    <div class="card project-card shadow-sm border-0" role="button" data-bs-toggle="modal"
-                        data-bs-target="#pomodoroModal">
-                        <img src="images/pomodoro main.png" class="card-img-top" alt="Pomodoro App">
+                <!-- UI/UX -->
+                <div class="col-md-6">
+                    <div class="card project-card shadow-sm" role="button" data-bs-toggle="modal"
+                        data-bs-target="#velvetModal">
+                        <div class="project-img-box">
+                            <img src="logos/velvet logo.svg" class="img-fluid" alt="UI/UX Project" />
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">UI/UX</h5>
-
-                            <div>
-                                <span class="badge bg-warning text-dark me-1">JavaScript</span>
-                                <span class="badge bg-info text-dark me-1">HTML</span>
-                                <span class="badge bg-secondary">CSS</span>
-                            </div>
+                            <h5 class="card-title">Velvet Oasis (UI/UX)</h5>
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
+
+
+
         </div>
     </section>
 
@@ -379,9 +476,25 @@
 
                 <!-- Header -->
                 <div class="modal-header border-0">
-                    <h4 class="modal-title fw-bold" id="thriftyModalLabel">Thrifty – E-Commerce Platform</h4>
+                    <h1 class="modal-title fw-bold" id="thriftyModalLabel">Thrifty – E-Commerce Platform</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <hr class="custom-hr" />
+
+
+                <div class="d-flex flex-wrap gap-2" style="padding-left: 1rem;">
+                    <span class="badge bg-secondary">HTML</span>
+                    <span class="badge bg-secondary">CSS</span>
+                    <span class="badge bg-secondary">JS</span>
+                    <span class="badge bg-secondary">Python</span>
+                    <span class="badge bg-secondary">Flask</span>
+                    <span class="badge bg-secondary">Bootstrap</span>
+
+                </div>
+
+
+
 
                 <!-- Body -->
                 <div class="modal-body">
@@ -389,17 +502,46 @@
                     <!-- Carousel -->
                     <div id="thriftyCarousel" class="carousel slide mb-4 position-relative" data-bs-ride="carousel">
                         <div class="carousel-inner rounded overflow-hidden">
+
                             <div class="carousel-item active">
-                                <img src="images/thrifty main+filter.png" class="d-block w-100"
-                                    alt="Thrifty Homepage" />
+                                <div class="carousel-img-box">
+                                    <img src="logos/thrifty-logo.svg" class="img-fluid" alt="Thrifty Logo" />
+                                </div>
                             </div>
+
                             <div class="carousel-item">
-                                <img src="images/thrifty dashboard.png" class="d-block w-100" alt="Admin Dashboard" />
+                                <div class="carousel-img-box">
+                                    <img src="images/thrifty main+filter.png" class="img-fluid" alt="Homepage" />
+                                </div>
                             </div>
+
                             <div class="carousel-item">
-                                <img src="images/thrifty product.png" class="d-block w-100" alt="Product View" />
+                                <div class="carousel-img-box">
+                                    <img src="images/thrifty product.png" class="img-fluid" alt="Admin Dashboard" />
+                                </div>
                             </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/thrifty dashboard.png" class="img-fluid" alt="Product View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/thrifty sell.png" class="img-fluid" alt="Product View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/thrifty donate.png" class="img-fluid" alt="Product View" />
+                                </div>
+                            </div>
+
+
                         </div>
+
                         <button class="carousel-control-prev" type="button" data-bs-target="#thriftyCarousel"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -409,6 +551,11 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         </button>
                     </div>
+                    <p style="text-align: center;"><b>Thrifty</b><br>
+                        <i>Making the world a better place 1 thrifted item at a time</i>
+                    </p>
+
+                    <h2><b>About Thrifty</b></h2>
 
 
                     <!-- Project Description -->
@@ -418,60 +565,121 @@
                         flow integration.
                     </p>
 
+                    <h2 class="fw-semibold mb-4">Key Features</h2>
+
                     <!-- Features -->
                     <div class="bento-box">
-                        <h5 class="fw-semibold mb-4">Key Features</h5>
                         <ul class="mb-0">
                             <li>User Authentication & Role-Based Access</li>
                             <li>Real-Time Admin Dashboard</li>
                             <li>Stripe Payment Integration</li>
                             <li>Search, Filters, and Sorting</li>
                             <li>Email Notifications with Nodemailer</li>
+                            <li>Donations made easy</li>
                         </ul>
                     </div>
 
-                    <!-- Technologies -->
-                    <div class="bento-box">
-                        <h5 class="fw-semibold mb-4">Built With</h5>
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="badge bg-secondary">React</span>
-                            <span class="badge bg-secondary">Node.js</span>
-                            <span class="badge bg-secondary">Express.js</span>
-                            <span class="badge bg-secondary">PostgreSQL</span>
-                            <span class="badge bg-secondary">Stripe API</span>
+
+                    <h2 class="fw-bold mt-4">Development Workflow</h2>
+
+                    <!-- Work Process & Challenges -->
+                    <div class="bento-box mt-4">
+
+                        <!-- Work Process -->
+                        <ul>
+                            <li><b>Planning:</b> Defined core features and mapped user roles (buyers, sellers, donors,
+                                admin).</li>
+                            <li><b>Design:</b> Created wireframes and UI mockups focused on simplicity and
+                                sustainability appeal.</li>
+                            <li><b>Development:</b> Used a modular structure with React (frontend) and Express.js
+                                (backend API).</li>
+                            <li><b>Testing:</b> Manual testing of filters, cart, payments, and admin dashboard using
+                                test data.</li>
+                            <li><b>Deployment:</b> Set up hosting, integrated Stripe live keys, and configured
+                                PostgreSQL via Neon.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Challenges -->
+                    <h2 class="fw-bold mt-4">Challenges Faced</h2>
+                    <div class="bento-box mt-4">
+
+                        <ul>
+                            <li><b>Role-Based Access:</b> Implementing different user roles with protected routes
+                                required custom middleware logic.</li>
+                            <li><b>Stripe Integration:</b> Handling asynchronous payment flows and validating webhooks
+                                was complex but rewarding.</li>
+                            <li><b>Filtering Logic:</b> Optimizing multi-filter product queries in Pythons Shelve while
+                                maintaining UI responsiveness.</li>
+                            <li><b>Responsiveness:</b> Ensuring consistent UI across desktop and mobile required
+                                fine-tuning layout and spacing with Bootstrap.</li>
+                            <li><b>Email Notifications:</b> Setting up Nodemailer with secure credentials and spam
+                                prevention took extra effort.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Outcome Tab -->
+                    <h2 class="fw-bold mt-4">Outcome</h2>
+
+                    <div class="card mt-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Thrifty successfully delivered a seamless and sustainable e-commerce experience by
+                                integrating a clean UI, efficient cart system, and eco-conscious branding.
+                                Users were able to browse and shop for items effortlessly, with features like smart
+                                filtering, real-time cart updates, and Python/ Shelve-backed product storage ensuring a
+                                smooth user journey.
+                            </p>
+                            <ul class="list-unstyled mt-3">
+                                <li>✅ Fully functional shopping cart with quantity management</li>
+                                <li>✅ Python + Shelve backend with product & user data persistence</li>
+                                <li>✅ Minimalist branding that promotes sustainability (green-themed UX)</li>
+                                <li>✅ Responsive layout for desktop and mobile shoppers</li>
+                                <li>✅ Clean codebase ready for future payment gateway integration</li>
+                            </ul>
                         </div>
                     </div>
 
+
                     <!-- Links -->
-                    <div class="bento-box">
-                        <h5 class="fw-semibold mb-4">Explore</h5>
-                        <a href="https://github.com/daniel/ecommerce" class="btn btn-outline-light me-2 mb-2"
-                            target="_blank">
+
+                    <!-- <h2 class="fw-semibold mt-4">Explore</h2>
+
+
+                    <div class="bento-box mt-4">
+                        <a href="https://github.com/daniel/ecommerce" class="btn btn-dark me-2 mb-2" target="_blank">
                             <i class="fab fa-github me-1"></i> GitHub
                         </a>
+
                         <a href="" class="btn btn-primary mb-2" target="_blank">
                             <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo
                         </a>
-                    </div>
-
-
-
-
+                    </div> -->
                 </div>
+
             </div>
         </div>
     </div>
 
 
+    <!-- Pomodoro Project Modal -->
     <div class="modal fade" id="pomodoroModal" tabindex="-1" aria-labelledby="pomodoroModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content text-black bg-white rounded shadow">
 
                 <!-- Header -->
                 <div class="modal-header border-0">
-                    <h4 class="modal-title fw-bold" id="pomodoroModalLabel">Pomodoro Productivity Timer</h4>
+                    <h1 class="modal-title fw-bold" id="pomodoroModalLabel">Frakt</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <!-- Tech Badges -->
+                <div class="d-flex flex-wrap gap-2 px-4">
+                    <span class="badge bg-secondary">HTML</span>
+                    <span class="badge bg-secondary">CSS</span>
+                    <span class="badge bg-secondary">JS</span>
+                </div>
+                <hr class="custom-hr" />
 
                 <!-- Body -->
                 <div class="modal-body">
@@ -480,14 +688,33 @@
                     <div id="pomodoroCarousel" class="carousel slide mb-4 position-relative" data-bs-ride="carousel">
                         <div class="carousel-inner rounded overflow-hidden">
                             <div class="carousel-item active">
-                                <img src="images/pomodoro-home.png" class="d-block w-100" alt="Pomodoro Timer Home" />
+                                <div class="carousel-img-box">
+                                    <img src="logos/frakt-pomodoro-logo.svg" class="img-fluid" alt="Thrifty Logo" />
+                                </div>
+                            </div>
+
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/pomodoro main.png" class="img-fluid" alt="Pomodoro Main" />
+                                </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="images/pomodoro-session.png" class="d-block w-100" alt="Focus Session View" />
+                                <div class="carousel-img-box">
+                                    <img src="images/pomodoro tt.png" class="img-fluid" alt="Timer and Task View" />
+                                </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="images/pomodoro-settings.png" class="d-block w-100" alt="Settings Panel" />
+                                <div class="carousel-img-box">
+                                    <img src="images/pomodoro todo.png" class="img-fluid" alt="To-do List View" />
+                                </div>
                             </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/pomodoro flappy.png" class="img-fluid" alt="Gamification View" />
+                                </div>
+                            </div>
+
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#pomodoroCarousel"
                             data-bs-slide="prev">
@@ -499,46 +726,446 @@
                         </button>
                     </div>
 
-                    <!-- Project Description -->
+                    <!-- Tagline -->
+                    <p class="text-center"><b>Pomodoro Productivity Timer</b><br><i>Helping you stay focused, one
+                            session at a time</i></p>
+
+                    <!-- About Section -->
+                    <h2><b>About Frakt</b></h2>
                     <p class="fs-5">
-                        The Pomodoro Productivity Timer is a web-based time management tool designed to help users boost
-                        focus and reduce mental fatigue using the Pomodoro Technique. It includes customizable
-                        work/break intervals, audio alerts, and progress tracking.
+                        This web app enhances productivity using the Pomodoro technique. It features customizable
+                        intervals, gamified breaks, task tracking, and session statistics—all with smooth animations and
+                        offline support.
                     </p>
 
-                    <!-- Features -->
+                    <!-- Key Features -->
+                    <h2 class="fw-semibold mb-4">Key Features</h2>
                     <div class="bento-box">
-                        <h5 class="fw-semibold mb-4">Key Features</h5>
                         <ul class="mb-0">
                             <li>Customizable Focus and Break Intervals</li>
+                            <li>Gamified Flappy-Break Mini Game</li>
+                            <li>Task Tracker with Priority Sorting</li>
                             <li>Audio & Desktop Notifications</li>
-                            <li>Dark/Light Mode Toggle</li>
-                            <li>Session History and Statistics</li>
-                            <li>Responsive UI with Animated Timer</li>
+                            <li>LocalStorage for Session Persistence</li>
+                            <li>Responsive UI with Smooth CSS Animations</li>
                         </ul>
                     </div>
 
-                    <!-- Technologies -->
-                    <div class="bento-box">
-                        <h5 class="fw-semibold mb-4">Built With</h5>
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="badge bg-secondary">React</span>
-                            <span class="badge bg-secondary">Tailwind CSS</span>
-                            <span class="badge bg-secondary">TypeScript</span>
-                            <span class="badge bg-secondary">Framer Motion</span>
-                            <span class="badge bg-secondary">IndexedDB</span>
+                    <!-- Workflow -->
+                    <h2 class="fw-bold mt-4">Development Workflow</h2>
+                    <div class="bento-box mt-4">
+                        <ul>
+                            <li><b>Planning:</b> Identified productivity gaps in basic timers and brainstormed a playful
+                                break system.</li>
+                            <li><b>Design:</b> Sketched UI layouts and applied utility-first CSS for clean, responsive
+                                design.</li>
+                            <li><b>Development:</b> Coded core logic in vanilla JavaScript, including timer intervals
+                                and task management.</li>
+                            <li><b>Testing:</b> Manually tested various timer edge cases, notification flows, and mobile
+                                responsiveness.</li>
+                            <li><b>Deployment:</b> Used GitHub Pages for free hosting and compressed assets for faster
+                                loading.</li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Challenges -->
+                    <h2 class="fw-bold mt-4">Challenges Faced</h2>
+                    <div class="bento-box mt-4">
+                        <ul>
+                            <li><b>Animation Timing:</b> Ensuring timer state synced accurately with Framer animations.
+                            </li>
+                            <li><b>Offline Storage:</b> Working with IndexedDB required careful schema handling and
+                                error fallback.</li>
+                            <li><b>Notification Permissions:</b> Desktop and audio permissions vary across browsers,
+                                handled via feature detection.</li>
+                            <li><b>Responsive Layout:</b> Adapting dashboard layout between mobile, tablet, and desktop
+                                while preserving UX.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Outcome -->
+                    <h2 class="fw-bold mt-4">Outcome</h2>
+                    <div class="card mt-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">
+                                The Pomodoro Productivity Timer was a success in offering a distraction-free environment
+                                for users. Its gamified break system increased session retention, and IndexedDB ensured
+                                users never lost progress.
+                            </p>
+                            <ul class="list-unstyled mt-3">
+                                <li>✅ Lightweight and PWA-ready</li>
+                                <li>✅ Framer Motion-powered animation system</li>
+                                <li>✅ Built-in offline task tracking and history</li>
+                                <li>✅ Clear, responsive layout for all devices</li>
+                                <li>✅ Ready for theme expansion (dark/light mode)</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Links -->
-                    <div class="bento-box">
-                        <h5 class="fw-semibold mb-4">Explore</h5>
-                        <a href="https://github.com/yourusername/pomodoro-timer" class="btn btn-outline-light me-2 mb-2"
+                    <!-- <h2 class="fw-semibold mt-4">Explore</h2>
+                    <div class="bento-box mt-4">
+                        <a href="https://github.com/yourusername/pomodoro-timer" class="btn btn-dark me-2 mb-2"
                             target="_blank">
                             <i class="fab fa-github me-1"></i> GitHub
                         </a>
                         <a href="https://pomodoro-demo.com" class="btn btn-primary mb-2" target="_blank">
                             <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo
+                        </a>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NGS Dashboard Modal -->
+    <div class="modal fade" id="ngsModal" tabindex="-1" aria-labelledby="ngsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content text-black bg-white rounded shadow">
+
+                <!-- Header -->
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fw-bold" id="ngsModalLabel">NGS Management Dashboard</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Tech Badges -->
+                <div class="d-flex flex-wrap gap-2 px-4">
+                    <span class="badge bg-secondary">React</span>
+                    <span class="badge bg-secondary">TypeScript</span>
+                    <span class="badge bg-secondary">MongoDB Atlas</span>
+                    <span class="badge bg-secondary">Tailwind CSS</span>
+                    <span class="badge bg-secondary">ShadCN UI</span>
+                    <span class="badge bg-secondary">Gemini AI</span>
+                </div>
+                <hr class="custom-hr" />
+
+                <!-- Body -->
+                <div class="modal-body">
+
+                    <!-- Carousel -->
+                    <div id="ngsCarousel" class="carousel slide mb-4 position-relative" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded overflow-hidden">
+                            <div class="carousel-item active">
+                                <div class="carousel-img-box">
+                                    <img src="logos/NGSlogo-logo.png" class="img-fluid" alt="NGS Dashboard Main" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-dashboard.png" class="img-fluid" alt="NGS Dashboard Main" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs shipment.png" class="img-fluid" alt="Analytics View" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-inventory.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-inventory.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-orders.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-user-settings.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-faq.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-financials.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/ngs-chat.png" class="img-fluid" alt="Reports View" />
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#ngsCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#ngsCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <!-- Tagline -->
+                    <p class="text-center"><b>NGS Management Dashboard</b><br><i>Empowering next-gen strategies through
+                            intelligent oversight</i></p>
+
+                    <!-- About -->
+                    <h2><b>About the Project</b></h2>
+                    <p class="fs-5">
+                        The NGS Management Dashboard is a powerful full-stack web platform designed for enterprise-level
+                        insights, report generation, and AI-enhanced decision-making. Powered by Gemini AI and MongoDB
+                        Atlas, it allows managers to monitor operations, generate insights, and automate workflows
+                        through a sleek, responsive interface.
+                    </p>
+
+                    <!-- Key Features -->
+                    <h2 class="fw-semibold mb-4">Key Features</h2>
+                    <div class="bento-box">
+                        <ul class="mb-0">
+                            <li>Real-time Analytics Dashboard</li>
+                            <li>Dynamic Report Generation with Export</li>
+                            <li>AI-powered Recommendations (Gemini Integration)</li>
+                            <li>User Role Management and Access Control</li>
+                            <li>Secure MongoDB Atlas Backend</li>
+                            <li>Responsive UI with Tailwind and ShadCN Components</li>
+                        </ul>
+                    </div>
+
+                    <!-- Workflow -->
+                    <h2 class="fw-bold mt-4">Development Workflow</h2>
+                    <div class="bento-box mt-4">
+                        <ul>
+                            <li><b>Planning:</b> Defined business use cases for role-based access and smart reporting.
+                            </li>
+                            <li><b>Design:</b> Tailwind UI mockups with accessibility in mind.</li>
+                            <li><b>Development:</b> Full-stack implementation using React + TSX + Express API + MongoDB
+                                Atlas.</li>
+                            <li><b>Testing:</b> Unit-tested core logic, and manually QA’d data visualizations.</li>
+                            <li><b>Deployment:</b> Hosted via Vercel (frontend) and MongoDB Atlas (backend DB), secured
+                                via environment configs.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Challenges -->
+                    <h2 class="fw-bold mt-4">Challenges Faced</h2>
+                    <div class="bento-box mt-4">
+                        <ul>
+                            <li><b>Gemini Integration:</b> Prompt engineering and handling AI responses with fallback
+                                logic.</li>
+                            <li><b>Data Sync:</b> Ensuring real-time sync between frontend and backend with webhooks and
+                                polling.</li>
+                            <li><b>Role-Based Access:</b> Securely implementing permission boundaries using JWT.</li>
+                            <li><b>UI Consistency:</b> Harmonizing Tailwind utility classes with ShadCN pre-built
+                                components.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Outcome -->
+                    <h2 class="fw-bold mt-4">Outcome</h2>
+                    <div class="card mt-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">
+                                The NGS Dashboard improved operational oversight for stakeholders and streamlined
+                                administrative tasks. Its intuitive layout, fast database queries, and AI-enhanced
+                                insights enabled better decision-making at scale.
+                            </p>
+                            <ul class="list-unstyled mt-3">
+                                <li>✅ Gemini AI-assisted suggestions integrated with real-time analytics</li>
+                                <li>✅ Clean, scalable React + TSX architecture</li>
+                                <li>✅ Secure data transactions via MongoDB Atlas</li>
+                                <li>✅ Polished ShadCN UI for a modern admin interface</li>
+                                <li>✅ Ready for enterprise deployment with CI/CD pipeline</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <!-- <h2 class="fw-semibold mt-4">Explore</h2>
+                    <div class="bento-box mt-4">
+                        <a href="https://github.com/yourusername/ngs-dashboard" class="btn btn-dark me-2 mb-2"
+                            target="_blank">
+                            <i class="fab fa-github me-1"></i> GitHub
+                        </a>
+                        <a href="https://ngs-dashboard-demo.com" class="btn btn-primary mb-2" target="_blank">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Live Demo
+                        </a>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Velvet Oasis Modal -->
+    <div class="modal fade" id="velvetModal" tabindex="-1" aria-labelledby="velvetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content text-black bg-white rounded shadow">
+
+                <!-- Header -->
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fw-bold" id="velvetModalLabel">Velvet Oasis – Hotel UX Design</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Tech Badges -->
+                <div class="d-flex flex-wrap gap-2 px-4">
+                    <span class="badge bg-secondary">Figma</span>
+                    <span class="badge bg-secondary">UI/UX</span>
+                    <span class="badge bg-secondary">Prototyping</span>
+                    <span class="badge bg-secondary">Design Thinking</span>
+                </div>
+                <hr class="custom-hr" />
+
+                <!-- Body -->
+                <div class="modal-body">
+
+                    <!-- Carousel -->
+                    <div id="velvetCarousel" class="carousel slide mb-4 position-relative" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded overflow-hidden">
+                            <div class="carousel-item active">
+                                <div class="carousel-img-box">
+                                    <img src="logos/velvet logo.svg" class="img-fluid" alt="Velvet Oasis Home Page" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet-homepage.png" class="img-fluid" alt="Booking Flow" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet1.png" class="img-fluid" alt="Room Selection" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet2.png" class="img-fluid" alt="Mobile View" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet3.png" class="img-fluid" alt="Mobile View" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet4.png" class="img-fluid" alt="Mobile View" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet5.png" class="img-fluid" alt="Mobile View" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-img-box">
+                                    <img src="images/velvet6.png" class="img-fluid" alt="Mobile View" />
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#velvetCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#velvetCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <!-- Tagline -->
+                    <p class="text-center"><b>Velvet Oasis</b><br><i>Where seamless booking meets luxurious design</i>
+                    </p>
+
+                    <!-- About -->
+                    <h2><b>About the Project</b></h2>
+                    <p class="fs-5">
+                        Velvet Oasis is a UI/UX design project crafted on Figma for a luxury hotel platform. The focus
+                        was on
+                        delivering a smooth booking experience, showcasing premium accommodations, and elevating the
+                        brand’s
+                        digital identity through refined visuals and intuitive interaction patterns.
+                    </p>
+
+                    <!-- Key Features -->
+                    <h2 class="fw-semibold mb-4">Key Features</h2>
+                    <div class="bento-box">
+                        <ul class="mb-0">
+                            <li>Luxury-themed visual design system</li>
+                            <li>Interactive booking flow with real-time feedback</li>
+                            <li>Room comparison & filter functionality</li>
+                            <li>Mobile-first responsive layout</li>
+                            <li>Accessible color and font pairing</li>
+                            <li>Interactive Figma prototype with transitions</li>
+                        </ul>
+                    </div>
+
+                    <!-- Workflow -->
+                    <h2 class="fw-bold mt-4">Design Workflow</h2>
+                    <div class="bento-box mt-4">
+                        <ul>
+                            <li><b>Research:</b> Conducted competitor analysis of luxury hotel platforms like Four
+                                Seasons & The Ritz.</li>
+                            <li><b>Empathy Mapping:</b> Identified guest frustrations around slow booking flows and lack
+                                of transparency.</li>
+                            <li><b>Wireframing:</b> Created low-fidelity wireframes to structure primary user journeys.
+                            </li>
+                            <li><b>Prototyping:</b> Built high-fidelity screens in Figma with consistent component
+                                library.</li>
+                            <li><b>User Testing:</b> Conducted prototype walkthroughs with target users and iterated on
+                                navigation clarity.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Challenges -->
+                    <h2 class="fw-bold mt-4">Challenges Faced</h2>
+                    <div class="bento-box mt-4">
+                        <ul>
+                            <li><b>Booking Flow Clarity:</b> Balancing minimalism with full context during multi-step
+                                bookings.</li>
+                            <li><b>Responsiveness:</b> Designing mobile views that retained elegance without sacrificing
+                                features.</li>
+                            <li><b>Brand Consistency:</b> Harmonizing colors, typography, and UI elements to feel both
+                                modern and luxurious.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Outcome -->
+                    <h2 class="fw-bold mt-4">Outcome</h2>
+                    <div class="card mt-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Velvet Oasis successfully delivered a frictionless hotel booking prototype that felt
+                                premium, intuitive,
+                                and fully mobile-responsive. The final prototype received positive feedback for its
+                                design aesthetics,
+                                clear call-to-actions, and elegant transitions.
+                            </p>
+                            <ul class="list-unstyled mt-3">
+                                <li>✅ Fully clickable prototype built in Figma</li>
+                                <li>✅ Adaptive screens for mobile and desktop</li>
+                                <li>✅ Accessibility-focused UX patterns</li>
+                                <li>✅ Luxury brand tone through visuals and copy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <h2 class="fw-semibold mt-4">Explore</h2>
+                    <div class="bento-box mt-4">
+                        <a href="https://www.figma.com/proto/8CAtYbyLn23t7V0haVhnnU/UX-assignment?node-id=1-2&p=f&t=bY15UbaLEgxmipVr-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2"
+                            class="btn btn-dark me-2 mb-2" target="_blank">
+                            <i class="fab fa-figma me-1"></i> View on Figma
                         </a>
                     </div>
 
@@ -553,7 +1180,7 @@
     <!-- Skills -->
     <section id="skills" class="py-5 bg-black text-light align-items-center d-flex" style="min-height: 100vh;">
         <div class="container">
-            <h2 class="text-center mb-4">Skills & Technologies</h2>
+            <h2 class="text-center mb-4"><b>Skills & Technologies</b></h2>
             <div class="row g-4">
                 <!-- Left Column -->
                 <div class="col-md-6">
@@ -573,6 +1200,10 @@
                     <div class="progress mb-3">
                         <div class="progress-bar" style="width:85%">85%</div>
                     </div>
+                    <h6>Figma</h6>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" style="width:95%">95%</div>
+                    </div>
                 </div>
                 <!-- Right Column -->
                 <div class="col-md-6">
@@ -580,7 +1211,7 @@
                     <div class="progress mb-3">
                         <div class="progress-bar" style="width:80%">80%</div>
                     </div>
-                    <h6>C# / C++ / Swift</h6>
+                    <h6>C# / C++</h6>
                     <div class="progress mb-3">
                         <div class="progress-bar" style="width:75%">75%</div>
                     </div>
@@ -592,6 +1223,11 @@
                     <div class="progress mb-3">
                         <div class="progress-bar" style="width:90%">90%</div>
                     </div>
+
+                    <h6>Swift</h6>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" style="width:55%">55%</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -599,7 +1235,7 @@
 
     <section id="contact" class="d-flex align-items-center bg-black text-light" style="min-height: 100vh;">
         <div class="container">
-            <h2 class="text-center mb-5">Get In Touch</h2>
+            <h2 class="text-center mb-5"><b>Get In Touch</b></h2>
             <div class="row align-items-center justify-content-center text-center text-md-start gy-4">
 
                 <!-- Social Icons -->
@@ -618,21 +1254,27 @@
 
                 <!-- Contact Form -->
                 <div class="col-md-6">
-                    <form>
+                    <form id="contactForm" novalidate>
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Your Name" required />
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required />
+                            <div class="invalid-feedback">Name is required.</div>
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Your Email" required />
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required />
+                            <div class="invalid-feedback">Valid email is required.</div>
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Subject" required />
+                            <input type="text" class="form-control" id="subject" placeholder="Subject" required />
+                            <div class="invalid-feedback">Subject is required.</div>
                         </div>
                         <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Your Message"
+                                required></textarea>
+                            <div class="invalid-feedback">Message is required.</div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Send Message</button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -656,6 +1298,41 @@
 <script src="three.r134.min.js"></script>
 <script src="vanta.clouds.min.js"></script>
 <script>
+
+    document.getElementById("contactForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const subject = form.subject.value.trim();
+        const message = form.message.value.trim();
+
+        // Bootstrap-style validation feedback
+        form.classList.add('was-validated');
+
+        if (!form.checkValidity()) return;
+
+        try {
+            const res = await fetch("https://formspree.io/f/xrblzkrq", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, subject, message }),
+            });
+
+            if (res.ok) {
+                alert("Message sent successfully!");
+                form.reset();
+                form.classList.remove("was-validated");
+            } else {
+                alert("Something went wrong. Please try again later.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("An error occurred.");
+        }
+    });
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
